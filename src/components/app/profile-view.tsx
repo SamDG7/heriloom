@@ -181,7 +181,7 @@ export function ProfileView({
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
               Top shelf
             </div>
-            <div className="mt-2 text-lg font-semibold tracking-tight">Rarest pieces</div>
+            <div className="mt-2 text-lg font-semibold tracking-tight">Explore the Pieces</div>
             <div className="mt-1 text-sm text-muted-foreground">
               Tap a token to see details and the burn outcome.
             </div>

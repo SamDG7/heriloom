@@ -34,7 +34,7 @@ export function MarketingBento({
       eyebrow: "Display case",
       title: "A profile worth flexing.",
       description:
-        "Your tokens read like a lookbook: rarity, brand affiliation, and the stories you kept.",
+        "Your tokens, Your Brand: rarity, brand affiliation, and the stories you kept.",
       icon: <Gem className="size-4" />,
     },
     {

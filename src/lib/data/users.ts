@@ -14,7 +14,7 @@ export const currentUser: User = {
     {
       id: "t_hw_001",
       brandId: "halfwave",
-      name: "Halfwave Crest",
+      name: "Halfwave Vibes",
       rarity: "Rare",
       artUrl: artUrlForTokenId("t_hw_001"),
       earnedAt: "2026-03-10",
