@@ -1,8 +1,9 @@
 import type { BrandQuest } from "@/lib/types";
 
-const HW = "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=85";
+const HW = "https://images.unsplash.com/photo-1711444077166-8abc8e33d3e1?auto=format&fit=crop&w=1200&q=85";
 const NE = "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1200&q=85";
-const OR = "https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=1200&q=85";
+const OR = "https://images.unsplash.com/photo-1518214598173-1666bc921d66?auto=format&fit=crop";
+const OR_T = "https://images.unsplash.com/photo-1634921363975-46fa99024422?auto=format&fit=crop";
 
 export const brandQuests: BrandQuest[] = [
   {

@@ -45,6 +45,7 @@ export function QuestPreviewCard({
           src={quest.tokenPreviewArtUrl}
           alt=""
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <div className="absolute left-3 top-3 flex flex-wrap gap-2">
