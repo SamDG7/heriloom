@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { ArrowRight, Gem } from "lucide-react";
 
@@ -11,9 +12,12 @@ import { currentUser } from "@/lib/data/users";
 import { MarketingHero } from "@/components/marketing/hero";
 import { MarketingBento } from "@/components/marketing/bento";
 import { BrandLookbookStrip } from "@/components/marketing/lookbook";
+import { WaitlistAccessDialog } from "@/components/marketing/waitlist-access-dialog";
 
 export default function Home() {
   const showcaseTokens = currentUser.tokens.slice(0, 6);
+  const [waitlistOpen, setWaitlistOpen] = React.useState(false);
+
   return (
     <div className="flex flex-col flex-1">
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/70 backdrop-blur-xl">
@@ -25,17 +29,18 @@ export default function Home() {
             <span className="text-sm font-semibold tracking-tight">Heirloom</span>
           </div>
           <div className="flex items-center gap-2">
-            <Button asChild className="rounded-full">
-              <Link href="/app/dashboard">
-                Open the app <ArrowRight className="ml-2 size-4" />
-              </Link>
+            <Button
+              className="rounded-full"
+              onClick={() => setWaitlistOpen(true)}
+            >
+              Open the app <ArrowRight className="ml-2 size-4" />
             </Button>
           </div>
         </div>
       </header>
 
       <main className="flex-1">
-        <MarketingHero />
+        <MarketingHero onOpenAppClick={() => setWaitlistOpen(true)} />
 
         {/* Bento overlaps hero slightly (Outseta-style depth) */}
         <div className="relative z-10 -mt-6 py-10 sm:-mt-8 sm:py-14">
@@ -66,10 +71,11 @@ export default function Home() {
                 product catalog instead of a points dashboard.
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
-                <Button asChild className="rounded-full">
-                  <Link href="/app/dashboard">
-                    Open dashboard <ArrowRight className="ml-2 size-4" />
-                  </Link>
+                <Button
+                  className="rounded-full"
+                  onClick={() => setWaitlistOpen(true)}
+                >
+                  Open dashboard <ArrowRight className="ml-2 size-4" />
                 </Button>
                 <Button asChild variant="secondary" className="rounded-full">
                   <Link href="/app/profile">View profile</Link>
@@ -143,6 +149,11 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <WaitlistAccessDialog
+        open={waitlistOpen}
+        onOpenChange={setWaitlistOpen}
+      />
     </div>
   );
 }

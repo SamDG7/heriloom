@@ -209,12 +209,17 @@ export default function DashboardPage() {
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {burnedTokens.map((t) => {
                     const brand = getBrand(t.brandId);
+                    const reward =
+                      brand?.rewardCatalog.find((r) => r.id === t.burn.rewardId) ??
+                      brand?.rewardCatalog[0] ??
+                      null;
                     return (
                       <TokenCard
                         key={t.id}
                         token={t}
                         fulfilled
                         brandName={brand?.name ?? "Brand"}
+                        imageUrl={reward?.imageUrl}
                         onClick={() => {
                           setActiveToken(t);
                           setOpen(true);

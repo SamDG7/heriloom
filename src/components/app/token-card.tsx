@@ -14,6 +14,8 @@ export function TokenCard({
   brandName,
   onClick,
   disabled,
+  /** Optional override (used when showing fulfilled burn reward art). */
+  imageUrl,
   /** Burned token — reward shipped; card stays clickable for tracking view */
   fulfilled = false,
 }: {
@@ -21,6 +23,7 @@ export function TokenCard({
   brandName: string;
   onClick?: () => void;
   disabled?: boolean;
+  imageUrl?: string;
   fulfilled?: boolean;
 }) {
   const onKeyDown = React.useCallback(
@@ -58,7 +61,7 @@ export function TokenCard({
         <div className="relative aspect-[4/5] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={token.artUrl}
+            src={imageUrl ?? token.artUrl}
             alt={token.name}
             className={cn(
               "h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]",

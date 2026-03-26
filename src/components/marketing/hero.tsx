@@ -8,7 +8,13 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 /** Outseta-inspired hero: soft horizontal mesh (peach / pink → warm yellow), large rounded bottom, centered type. */
-export function MarketingHero({ className }: { className?: string }) {
+export function MarketingHero({
+  className,
+  onOpenAppClick,
+}: {
+  className?: string;
+  onOpenAppClick?: () => void;
+}) {
   return (
     <section
       className={cn(
@@ -59,15 +65,25 @@ export function MarketingHero({ className }: { className?: string }) {
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-          <Button
-            asChild
-            size="lg"
-            className="h-12 rounded-full bg-[#c026d3] px-8 text-base font-semibold text-white shadow-md shadow-fuchsia-900/20 hover:bg-[#a21caf]"
-          >
-            <Link href="/app/dashboard">
+          {onOpenAppClick ? (
+            <Button
+              size="lg"
+              onClick={onOpenAppClick}
+              className="h-12 rounded-full bg-[#c026d3] px-8 text-base font-semibold text-white shadow-md shadow-fuchsia-900/20 hover:bg-[#a21caf]"
+            >
               Open the app <ArrowRight className="ml-2 size-4" />
-            </Link>
-          </Button>
+            </Button>
+          ) : (
+            <Button
+              asChild
+              size="lg"
+              className="h-12 rounded-full bg-[#c026d3] px-8 text-base font-semibold text-white shadow-md shadow-fuchsia-900/20 hover:bg-[#a21caf]"
+            >
+              <Link href="/app/dashboard">
+                Open the app <ArrowRight className="ml-2 size-4" />
+              </Link>
+            </Button>
+          )}
           <Button
             asChild
             size="lg"
