@@ -1,64 +1,147 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import { ArrowRight, Gem } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { brands } from "@/lib/data/brands";
+import { currentUser } from "@/lib/data/users";
+import { MarketingHero } from "@/components/marketing/hero";
+import { MarketingBento } from "@/components/marketing/bento";
+import { BrandLookbookStrip } from "@/components/marketing/lookbook";
 
 export default function Home() {
+  const showcaseTokens = currentUser.tokens.slice(0, 6);
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="flex flex-col flex-1">
+      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/70 backdrop-blur-xl">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
+          <div className="flex items-center gap-2">
+            <div className="grid size-9 place-items-center rounded-2xl bg-[oklch(0.29_0.08_305)] text-white shadow-sm">
+              <Gem className="size-4" />
+            </div>
+            <span className="text-sm font-semibold tracking-tight">Heirloom</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button asChild className="rounded-full">
+              <Link href="/app/dashboard">
+                Open the app <ArrowRight className="ml-2 size-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      <main className="flex-1">
+        <MarketingHero />
+
+        {/* Bento overlaps hero slightly (Outseta-style depth) */}
+        <div className="relative z-10 -mt-6 py-10 sm:-mt-8 sm:py-14">
+          <MarketingBento />
+        </div>
+
+        <BrandLookbookStrip
+          items={brands.map((b) => ({
+            title: b.name,
+            subtitle: b.handle,
+            imageUrl: b.heroImageUrl,
+          }))}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+        <section className="mx-auto w-full max-w-7xl px-5 pb-24 pt-12 sm:px-8 sm:pt-16">
+          <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+            <div>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Badge variant="secondary" className="rounded-full">
+                  Collection preview
+                </Badge>
+              </div>
+              <h2 className="mt-4 font-[var(--font-heading)] text-3xl font-semibold tracking-tight sm:text-4xl">
+                A display case you actually want to share.
+              </h2>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
+                Token art, rarity, burn outcomes — designed like a premium
+                product catalog instead of a points dashboard.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                <Button asChild className="rounded-full">
+                  <Link href="/app/dashboard">
+                    Open dashboard <ArrowRight className="ml-2 size-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="secondary" className="rounded-full">
+                  <Link href="/app/profile">View profile</Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+              {showcaseTokens.slice(0, 4).map((t) => (
+                <Card
+                  key={t.id}
+                  className="overflow-hidden rounded-3xl border-border/70 bg-white/80 p-0 shadow-sm transition-shadow hover:shadow-md"
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={t.artUrl}
+                      alt={t.name}
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0" />
+                    <div className="absolute bottom-3 left-3 right-3">
+                      <div className="truncate text-sm font-semibold text-white">
+                        {t.name}
+                      </div>
+                      <div className="text-xs text-white/80">{t.rarity}</div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-14 grid gap-4 sm:grid-cols-3">
+            <Card className="rounded-[26px] heirloom-card bg-white/70 p-6">
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                Built for brands
+              </div>
+              <div className="mt-3 text-lg font-semibold tracking-tight">
+                Drops that feel native.
+              </div>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Premium imagery, clean hierarchy, and a product-first burn flow
+                that reads like commerce.
+              </p>
+            </Card>
+            <Card className="rounded-[26px] heirloom-card bg-white/70 p-6">
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                Built for collectors
+              </div>
+              <div className="mt-3 text-lg font-semibold tracking-tight">
+                Collectibles with utility.
+              </div>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                A single collection across every brand — rarity, burn outcomes,
+                and status history in one profile.
+              </p>
+            </Card>
+            <Card className="rounded-[26px] heirloom-card bg-white/70 p-6">
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                Built for momentum
+              </div>
+              <div className="mt-3 text-lg font-semibold tracking-tight">
+                Social by default.
+              </div>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Leaderboards route into public profiles — browse other
+                collectors, their tokens, and their status unlocks.
+              </p>
+            </Card>
+          </div>
+        </section>
       </main>
     </div>
   );
