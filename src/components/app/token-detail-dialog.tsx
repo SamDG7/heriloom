@@ -129,7 +129,7 @@ export function TokenDetailDialog({
                   <img
                     src={reward.imageUrl}
                     alt={reward.title}
-                    className="aspect-[16/10] w-full object-cover sm:aspect-[2/1]"
+                    className="aspect-[16/10] w-full object-contain sm:aspect-[2/1] bg-muted/30"
                   />
                   <div className="border-t border-border/60 bg-white/95 px-4 py-3 backdrop-blur-sm">
                     <div className="flex items-start gap-2 text-sm">
@@ -260,12 +260,12 @@ export function TokenDetailDialog({
                   </div>
 
                   <Card className="mt-5 overflow-hidden rounded-3xl border-border/70 bg-white/80 p-0 shadow-sm">
-                    <div className="relative aspect-[16/10] overflow-hidden">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-muted/30">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={reward.imageUrl}
                         alt={reward.title}
-                        className="h-full w-full object-cover"
+                        className="h-full w-full object-contain"
                       />
                     </div>
                     <div className="p-4 text-xs text-muted-foreground">

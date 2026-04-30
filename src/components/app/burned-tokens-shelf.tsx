@@ -43,12 +43,12 @@ export function BurnedTokensShelf({
           transition={{ duration: 0.35, delay: 0.05 * idx, ease: "easeOut" }}
         >
           <Card className="overflow-hidden rounded-3xl border-border/70 bg-white/85 p-0 shadow-sm ring-1 ring-black/[0.04]">
-            <div className="relative aspect-[16/10] overflow-hidden">
+            <div className="relative aspect-[16/10] overflow-hidden bg-muted/30">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={item.rewardImageUrl}
                 alt=""
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
               <div className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur">

@@ -7,7 +7,7 @@ import { ArrowRight, Gem } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { brands } from "@/lib/data/brands";
+import { brands, getBrand } from "@/lib/data/brands";
 import { currentUser } from "@/lib/data/users";
 import { MarketingHero } from "@/components/marketing/hero";
 import { MarketingBento } from "@/components/marketing/bento";
@@ -16,6 +16,7 @@ import { WaitlistAccessDialog } from "@/components/marketing/waitlist-access-dia
 
 export default function Home() {
   const showcaseTokens = currentUser.tokens.slice(0, 6);
+  const burnedIds = new Set(currentUser.burnedTokenIds ?? []);
   const [waitlistOpen, setWaitlistOpen] = React.useState(false);
 
   return (
@@ -84,28 +85,46 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-              {showcaseTokens.slice(0, 4).map((t) => (
-                <Card
-                  key={t.id}
-                  className="overflow-hidden rounded-3xl border-border/70 bg-white/80 p-0 shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={t.artUrl}
-                      alt={t.name}
-                      className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0" />
-                    <div className="absolute bottom-3 left-3 right-3">
-                      <div className="truncate text-sm font-semibold text-white">
-                        {t.name}
+              {showcaseTokens.slice(0, 4).map((t) => {
+                const brand = getBrand(t.brandId);
+                const isBurned = burnedIds.has(t.id);
+                const reward =
+                  isBurned && brand
+                    ? brand.rewardCatalog.find((r) => r.id === t.burn.rewardId) ??
+                      brand.rewardCatalog[0]
+                    : null;
+                // Amber Bloom is the one we want to visually match the shipping
+                // reward art for (candle image).
+                const shouldUseAmberBloomReward =
+                  t.id === "t_ne_001" || t.name === "Amber Bloom";
+                const imgSrc = shouldUseAmberBloomReward
+                  ? (brand?.rewardCatalog.find((r) => r.id === t.burn.rewardId)
+                      ?.imageUrl ?? reward?.imageUrl ?? t.artUrl)
+                  : reward?.imageUrl ?? t.artUrl;
+
+                return (
+                  <Card
+                    key={t.id}
+                    className="overflow-hidden rounded-3xl border-border/70 bg-white/80 p-0 shadow-sm transition-shadow hover:shadow-md"
+                  >
+                    <div className="relative aspect-[4/5] overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={imgSrc}
+                        alt={t.name}
+                        className="h-full w-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0" />
+                      <div className="absolute bottom-3 left-3 right-3">
+                        <div className="truncate text-sm font-semibold text-white">
+                          {t.name}
+                        </div>
+                        <div className="text-xs text-white/80">{t.rarity}</div>
                       </div>
-                      <div className="text-xs text-white/80">{t.rarity}</div>
                     </div>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
           </div>
 
